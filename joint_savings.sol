@@ -26,9 +26,11 @@ contract JointSavings {
     - A variable of type `address public` named `lastToWithdraw`
     - Two variables of type `uint public` named `lastWithdrawAmount` and `contractBalance`.
     */
-    address payable accountOne, accountTwo;
+    address payable accountOne;
+    address payable accountTwo;
     address public lastToWithdraw;
-    uint public lastWithdrawAmount, contractBalance;
+    uint public lastWithdrawAmount;
+    uint public contractBalance;
 
 
     /*
@@ -46,16 +48,19 @@ contract JointSavings {
         /*
         Define a `require` statement that checks if the `balance` is sufficient to accomplish the withdraw operation. If there are insufficient funds, the text `Insufficient funds!` is returned.
         */
-        require(balanced < amount, "Insufficient funds!");
+        require(address(this).balance >= amount, "Insufficient funds!");
 
         /*
         Add and `if` statement to check if the `lastToWithdraw` is not equal to (`!=`) to `recipient` If `lastToWithdraw` is not equal, then set it to the current value of `recipient`.
         */
-        if (lastToWithdraw != recipient) lastToWithdraw = receipient;
+        if (lastToWithdraw != recipient){
+            lastToWithdraw = recipient;
+            
+        }
 
         // Call the `transfer` function of the `recipient` and pass it the `amount` to transfer as an argument.
         // YOUR CODE HERE!
-        function transfer(address recipient, uint amount);
+        return recipient.transfer(amount);
 
         // Set  `lastWithdrawAmount` equal to `amount`
         // YOUR CODE HERE!
@@ -73,6 +78,7 @@ contract JointSavings {
         Call the `contractBalance` variable and set it equal to the balance of the contract by using `address(this).balance`.
         */
         // YOUR CODE HERE!
+        contractBalance = address(this).balance;
     }
 
     /*
@@ -82,10 +88,15 @@ contract JointSavings {
 
         // Set the values of `accountOne` and `accountTwo` to `account1` and `account2` respectively.
         // YOUR CODE HERE!
+        accountOne = account1;
+        accountTwo = account2;
+        
     }
 
     /*
     Finally, add the **default fallback function** so that your contract can store Ether sent from outside the deposit function.
     */
     // YOUR CODE HERE!
+    //function deposit() public payable{}
+    function() external payable{}
 }
