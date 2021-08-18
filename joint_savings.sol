@@ -6,13 +6,9 @@ To automate the creation of joint savings accounts, you will create a solidity s
 
 The Starting file provided for this challenge contains a `pragma` for solidity version `5.0.0`.
 You will do the following:
-
 1. Create and work within a local blockchain development environment using the JavaScript VM provided by the Remix IDE.
-
 2. Script and deploy a **JointSavings** smart contract.
-
 3. Interact with your deployed smart contract to transfer and withdraw funds.
-
 */
 
 pragma solidity ^0.5.0;
@@ -31,13 +27,12 @@ contract JointSavings {
     address public lastToWithdraw;
     uint public lastWithdrawAmount;
     uint public contractBalance;
-
-
     /*
     Define a function named **withdraw** that will accept two arguments.
     - A `uint` variable named `amount`
     - A `payable address` named `recipient`
     */
+
     function withdraw(uint amount, address payable recipient) public {
 
         /*
@@ -55,19 +50,15 @@ contract JointSavings {
         */
         if (lastToWithdraw != recipient){
             lastToWithdraw = recipient;
-            
         }
 
         // Call the `transfer` function of the `recipient` and pass it the `amount` to transfer as an argument.
-        // YOUR CODE HERE!
-        return recipient.transfer(amount);
+        recipient.transfer(amount);
 
         // Set  `lastWithdrawAmount` equal to `amount`
-        // YOUR CODE HERE!
         lastWithdrawAmount = amount;
         
         // Call the `contractBalance` variable and set it equal to the balance of the contract by using `address(this).balance` to reflect the new balance of the contract.
-        // YOUR CODE HERE!
         contractBalance = address(this).balance;
     }
 
@@ -77,7 +68,6 @@ contract JointSavings {
         /*
         Call the `contractBalance` variable and set it equal to the balance of the contract by using `address(this).balance`.
         */
-        // YOUR CODE HERE!
         contractBalance = address(this).balance;
     }
 
@@ -87,7 +77,6 @@ contract JointSavings {
     function setAccounts(address payable account1, address payable account2) public{
 
         // Set the values of `accountOne` and `accountTwo` to `account1` and `account2` respectively.
-        // YOUR CODE HERE!
         accountOne = account1;
         accountTwo = account2;
         
@@ -96,7 +85,5 @@ contract JointSavings {
     /*
     Finally, add the **default fallback function** so that your contract can store Ether sent from outside the deposit function.
     */
-    // YOUR CODE HERE!
-    //function deposit() public payable{}
     function() external payable{}
 }
